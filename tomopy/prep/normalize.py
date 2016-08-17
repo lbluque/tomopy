@@ -223,7 +223,8 @@ def normalize_bg(tomo, air=1, ncore=None, nchunk=None):
 
 
 def normalize_nf(tomo, flats, dark, flat_loc,
-                 cutoff=None, ncore=None):
+                 cutoff=None, operation='median',
+                 ncore=None):
     """
     Normalize raw 3D projection data with flats taken more than once during
     tomography. Normalization for each projection is done with the mean of the
@@ -247,6 +248,12 @@ def normalize_nf(tomo, flats, dark, flat_loc,
     ndarray
         Normalized 3D tomographic data.
     """
+    if operation == 'mean':
+        op = np.mean
+    elif operation == 'median':
+        op = np.median
+    else:
+        raise ValueError('%s operation keyword not in allowed keywords')
 
     tomo = dtype.as_float32(tomo)
     flats = dtype.as_float32(flats)
@@ -254,19 +261,18 @@ def normalize_nf(tomo, flats, dark, flat_loc,
 
     arr = np.zeros_like(tomo)
 
-    dark = np.median(dark, axis=0)
+    dark = op(dark, axis=0)
 
     num_flats = len(flat_loc)
     total_flats = flats.shape[0]
     total_tomo = tomo.shape[0]
-
     num_per_flat = total_flats//num_flats
     tend = 0
 
     for m, loc in enumerate(flat_loc):
         fstart = m*num_per_flat
         fend = (m + 1)*num_per_flat
-        flat = np.median(flats[fstart:fend], axis=0)
+        flat = op(flats[fstart:fend], axis=0)
 
         # Normalization can be parallelized much more efficiently outside this
         # foor loop accounting for the nested parallelism arising from
