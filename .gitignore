@@ -1,3 +1,6 @@
+# temporary config file for build
+config/Mk.config
+
 # Compiled source #
 ###################
 *.com
@@ -23,18 +26,18 @@
 *.egg
 *.egg-info
 dist
-include
 share
 build
-eggs
+_skbuild
+_cmake_test_compile
+/build-*
+.eggs
 parts
 bin
 var
 sdist
 develop-eggs
 .installed.cfg
-lib
-lib64
 __pycache__
 
 # Logs and databases #
@@ -42,6 +45,7 @@ __pycache__
 *.log
 *.sql
 *.sqlite
+/.docker/pgilinux-*
 
 # OS generated files #
 ######################
@@ -66,6 +70,7 @@ doc/_build
 .settings
 pip-log.txt
 .ipynb_checkpoints
+/tomopy/allocator/__init__.py
 
 # Other byproducts #
 ####################
@@ -88,6 +93,7 @@ test.py
 main.py
 *.ipynb
 trunk
+/test/*.jpeg
 
 # Installer logs
 ##############
@@ -96,6 +102,7 @@ pip-log.txt
 # Unit test / coverage reports #
 ################################
 .coverage
+.coverage.xml
 .tox
 nosetests.xml
 
@@ -113,10 +120,37 @@ nosetests.xml
 .project
 .pydevproject
 .idea
+.vscode
+/CMakeLists.txt.user*
 
 # Private functions #
 #####################
 script
-ptycho.py
 *.autotools
 *.cproject
+
+# Benchmarking #
+################
+/Build.cmake
+/CTestConfig.cmake
+/CTestCustom.cmake
+/CTestTestfile.cmake
+/Coverage.cmake
+/DartConfiguration.tcl
+/Glob.cmake
+/Init.cmake
+/Makefile
+/MemCheck.cmake
+/Stages.cmake
+/Submit.cmake
+/Test.cmake
+/Testing
+/Utilities.cmake
+/cmake_install.cmake
+*.gcov
+*.gcda
+*.gcno
+/coverage.xml
+/.coverage.xml
+/CMakeFiles
+/test_rotate.py

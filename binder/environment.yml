@@ -1,0 +1,9 @@
+name: tomopy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - dxchange
+  # We don't need the full matplotlib with QT because we are using jupyter
+  - matplotlib-base
+  - tomopy
